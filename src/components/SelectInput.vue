@@ -16,7 +16,7 @@
 <script>
 import data from "../service/data";
 import Web3utils from "../service/web3utils.js";
-import Home from "../service/Home";
+import Home from "../service/home";
 
 export default {
   name: "selectinput",
@@ -38,26 +38,25 @@ export default {
       if (s == "" || s == null || !s)
         this.$message.error(that.selectinput.input_info);
       else {
-        var search = s.toLowerCase();
-        search = search.replace(/(^\s*)|(\s*$)/g, "");
+        
+        // var search = s.toLowerCase();
+        let search = s.replace(/(^\s*)|(\s*$)/g, "");
         // search = search.replace(/\"/g, "");
         this.form.searchInput = "";
         // this.form.searchForm.$setPristine();
         // this.form.searchForm.$setUntouched();
         //地址开始
-        if (await Web3utils.isAddress(search)) {
+        if (await Web3utils.isAccount(search)) {
+          console.log("is account ....")
           // this.$router.push({path: 'eaaddress', query: {address: search}});
           //判断地址是内部还会外部
           let res = await Home.tokenrelay(search);
-          console.log("isdddd--", res);
           if (res.data == "" || res.data == null) {
-            console.log("ainputaddress1...", search);
             this.$router.push({
               path: "eaaddress",
               query: { address: search }
             });
           } else {
-            console.log("inputaddress2...", search);
             this.$router.push({
               path: "caaddress",
               query: { address: search }
@@ -65,11 +64,12 @@ export default {
           }
           //地址结束
         } else if (await Web3utils.isTransaction(search)) {
-          // console.log("hash");
+          console.log("is tx hash");
           // this.$router.push({path: 'txeadetail', query: {hash: search}});
           // $location.path("/tx/" + search);
-          if (search.length == 66) {
+          if (search.length == 44) {
             let xreg = await Home.transactionRelay(search);
+            console.log("xreg:",xreg)
             if (xreg.data.contractLable) {
               this.$router.push({
                 path: "txcadetail",
@@ -99,6 +99,7 @@ export default {
           // console.log(reg.data.tokenTransfer);
           //hash结束
         } else if (!isNaN(search)) {
+          console.log("is blocknum...")
           this.$router.push({
             path: "blocklistdetail",
             query: { block: search }
@@ -159,7 +160,7 @@ textarea {
     margin: 0 auto;
     text-align: left;
     .box_title {
-      background: #262856;
+      background: #239e86;
       width: auto;
       padding: 0 10px;
       display: inline-block;
@@ -188,7 +189,7 @@ textarea {
       button {
         width: 110px;
         height: 58px;
-        background: #262856;
+        background: #239e86;
         border: 0;
         outline: none;
         cursor: pointer;

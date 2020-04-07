@@ -211,7 +211,7 @@
 
 <script>
 import data from "../../../service/data";
-import Home from "../../../service/Home";
+import Home from "../../../service/home";
 import pic1w from "../../../assets/images/index/others/trading_overview_w.png";
 import pic1g from "../../../assets/images/index/others/trading_overview_g.png";
 import pic2w from "../../../assets/images/index/others/intratransaction_w.png";
@@ -577,11 +577,11 @@ export default {
                 }
               }
               .add {
-                color: #1d1f4e;
+                color: #239e86;
                 font-weight: bold;
               }
               .black {
-                color: #1d1f4e;
+                color: #239e86;
                 margin: 0;
               }
               .green {

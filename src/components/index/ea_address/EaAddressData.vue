@@ -34,7 +34,7 @@
             <p>{{add.account_type}}</p>
             <dl>{{account_type}}</dl>
           </dd>
-          <dd class="d-flex align-items-center" v-if="minerShow">
+          <!-- <dd class="d-flex align-items-center" v-if="minerShow">
             <p>{{add.account_level}}</p>
             <dl>{{account_level}}</dl>
           </dd>
@@ -47,21 +47,21 @@
             <dl>{{block_count}}</dl>
           </dd>
           <dd class="d-flex align-items-center" v-if="minerShow">
-            <p>{{add.seek_num}}</p>
-            <dl>{{seek_num}}</dl>
-          </dd>
+            <p>{{add.CBase_num}}</p>
+            <dl>{{CBase_num}}</dl>
+          </dd> -->
           <!-- <dd class="d-flex align-items-center" v-if="minerShow">
             <p>{{add.reward_num}}</p>
             <dl>{{reward_num}}</dl>
           </dd>  -->
-          <dd class="d-flex align-items-center" v-if="minerShow">
+          <!-- <dd class="d-flex align-items-center" v-if="minerShow">
             <p>{{add.burn_num}}</p>
             <dl>{{burn_num}}</dl>
           </dd>
           <dd class="d-flex align-items-center" v-if="minerShow">
             <p>{{add.pid}}</p>
             <dl>{{pid}}</dl>
-          </dd>
+          </dd> -->
           <dd class="d-flex align-items-center">
             <p>{{add.historical_transaction_number}}</p>
             <dl>{{historical_transaction_number}}</dl>
@@ -73,7 +73,7 @@
       </div>
     </div>
     <!--  -->
-    <div class="bd_show">
+    <!-- <div class="bd_show">
       <div class="bd_show_title d-flex align-items-center justify-content-space-between">
         <div class="bd_show_title_l d-flex align-items-center justify-content-space-between">
           <img src="../../../assets/images/index/others/historical_exchange.png">
@@ -83,10 +83,9 @@
           <p v-if="minerShow">/</p>
           <p style="cursor: pointer;" v-if="minerShow" @click="yieldlogShow()">{{add.benefit_logs}}</p>
         </div>
-        <!-- <a v-if="yieldShow" target="_blank" style="color: #000;font-weight:bold;margin: 2px 10px 0 0;" :href="'http://13.251.6.203:3001/api/export_reward?address=' + nowaddress">{{add.excel}}</a> -->
       </div>
-    </div>
-    <div class="bd_show" v-if="historyshow">
+    </div> -->
+    <!-- <div class="bd_show" v-if="historyshow">
       <div class="bd_show_data">
         <el-table
           :data="tableData"
@@ -95,8 +94,6 @@
             fixed
             :label="add.hash">
             <template slot-scope="scope">
-              <!-- <span style="color:#39BDA6;">{{ scope.row.hash }}</span> -->
-              <!-- <router-link style="color:#39BDA6" :to="{ path: 'txeadetail', query: { hash: scope.row.hash}}">{{scope.row.hash}}</router-link> -->
               <span style="color:#39BDA6;" class="cursor-pointer" @click="transactionRelay(scope.row.hash)">{{ scope.row.hash }}</span>
               <span v-if="scope.row.status == 0" class="fail">fail !</span>
             </template>
@@ -110,7 +107,6 @@
           <el-table-column
             :label="add.author">
             <template slot-scope="scope">
-              <!-- <span style="color:#39BDA6;">{{ scope.row.witness }}</span> -->
               <router-link :to="{ path: 'eaaddress', query: { address: scope.row.author}}" class="green cursor-pointer">{{scope.row.author}}</router-link>
             </template>
           </el-table-column>
@@ -124,14 +120,12 @@
             :label="add.roll_out">
             <template slot-scope="scope">
               <a class="cursor-pointer" style="color:#39BDA6;" @click="tokenrelay(scope.row.from)" :disabled="isDisable">{{scope.row.from}}</a>
-              <!-- <span style="color:#39BDA6;">{{ scope.row.from }}</span> -->
             </template>
           </el-table-column>
           <el-table-column
             :label="add.shift_to">
             <template slot-scope="scope">
               <a class="cursor-pointer" style="color:#39BDA6;" @click="tokenrelay(scope.row.to)" :disabled="isDisable">{{scope.row.to}}</a>
-              <!-- <span style="color:#39BDA6;">{{ scope.row.to }}</span> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -146,8 +140,8 @@
           </el-table-column>
         </el-table>
       </div>
-    </div>
-    <div class="page_num" v-if="historyshow">
+    </div> -->
+    <!-- <div class="page_num" v-if="historyshow">
       <el-pagination
         background
         @current-change="current_change"
@@ -156,9 +150,9 @@
         :pager-count="5"
         layout="prev, pager, next">
       </el-pagination>
-    </div>
+    </div> -->
     <!-- logs -->
-    <div class="bd_show" v-if="minerDataShow" v-loading="logload">
+    <!-- <div class="bd_show" v-if="minerDataShow" v-loading="logload">
       <div class="bd_show_data">
         <el-table
           :data="logsData"
@@ -200,12 +194,6 @@
               <span>{{ new Date(scope.row.createAt).getTime() | formatDate }}</span>
             </template>
           </el-table-column>
-          <!-- <el-table-column
-            :label="add.level">
-            <template slot-scope="scope">
-              <span>{{ scope.row.level}}</span>
-            </template>
-          </el-table-column> -->
         </el-table>
       </div>
     </div>
@@ -218,7 +206,7 @@
         :pager-count="5"
         layout="prev, pager, next">
       </el-pagination>
-    </div>
+    </div> -->
     <!-- yield -->
     <div class="bd_show" v-if="yieldShow" v-loading="yieldload">
       <div class="bd_show_data">
@@ -230,9 +218,6 @@
             type="index"
             :index="indexMethod"
             :label="add.no">
-            <!-- <template slot-scope="scope">
-              <span>{{index}}</span>
-            </template> -->
           </el-table-column>
           <el-table-column
             :label="add.type">
@@ -285,7 +270,7 @@
 <script>
 import VueQr from "vue-qr";
 import data from "../../../service/data";
-import Home from "../../../service/Home";
+import Home from "../../../service/home";
 import { setTimeout } from "timers";
 
 export default {
@@ -323,7 +308,7 @@ export default {
       account_type: "",
       account_level: "",
       nonce_count: "",
-      seek_num: "",
+      CBase_num: "",
       reward_num: "",
       block_count: 0,
       burn_num: "",
@@ -374,59 +359,65 @@ export default {
     async addrress() {
       // console.log(this.$route.query.hash);
       try {
+        
         let address = this.$route.query.address;
-        this.nowaddress = this.$route.query.address;
-        this.getBalance(address);
-        let addrtx = await Home.addrTXcounts(address);
-        this.total = addrtx.data.count;
-        let minerinfo = await Home.minerInfo(address);
-        let minerRewardData = await Home.minerRewardList(address);
-        if (minerinfo.data.resp != null) {
-          let benefit = await Home.getBenefitData(address, this.yield_currentPage);
-          this.yieldData = benefit.data.resp.list;
-          this.yield_total = benefit.data.resp.count;
-        }
-        let rewardData = minerRewardData.data.resp;
-        // console.log("rewardData...",rewardData)
-        if (rewardData) {
-          if (rewardData.count > 0) {
-            this.logs_total = rewardData.count;
-          }
-          if (rewardData.list && rewardData.list.length > 0) {
-            this.logsData = rewardData.list;
-          }
-        }
-
-        if (minerinfo.data.resp != null) {
-          this.minerShow = true;
+        let accountMesg = await Home.getAccountById(address);
+        accountMesg = accountMesg.data.resp.account;
+        this.yue = accountMesg.amount;
+        if(accountMesg.isValidator){
           this.account_type = this.add.kg;
-          this.account_level = minerinfo.data.resp.level;
-          this.maxStorage = minerinfo.data.resp.maxStorage;
-          this.nonce_count = minerinfo.data.resp.maxStorage * 1000 * 1000 *4
-          this.seek_num = minerinfo.data.resp.burntCoin;
-          this.reward_num = minerinfo.data.resp.reward;
-          this.burn_num = minerinfo.data.resp.author;
-          this.pid = BigInt("0x"+String(this.burn_num).substring(26),16).toString()
-          this.block_count = minerinfo.data.resp.blockCount;
-        } else {
-          this.minerShow = false;
+        }else{
           this.account_type = this.add.pt;
         }
-        let res = await Home.addr(address, this.total, 1, 1, this.pagesize, 0);
-        if (JSON.stringify(res.data) == "{}") {
-          this.$message.error(this.add.no_hash);
-          this.$router.push("/home");
-        }
+        this.historical_transaction_number = accountMesg.tx_account;
+
+        // this.nowaddress = this.$route.query.address;
+        // this.getBalance(address);
+        // let addrtx = await Home.addrTXcounts(address);
+        // this.total = addrtx.data.count;
+        // let minerinfo = await Home.minerInfo(address);
+        // let minerRewardData = await Home.minerRewardList(address);
+        // if (minerinfo.data.resp != null) {
+        //   let benefit = await Home.getBenefitData(address, this.yield_currentPage);
+        //   this.yieldData = benefit.data.resp.list;
+        //   this.yield_total = benefit.data.resp.count;
+        // }
+        // let rewardData = minerRewardData.data.resp;
+        // // console.log("rewardData...",rewardData)
+        // if (rewardData) {
+        //   if (rewardData.count > 0) {
+        //     this.logs_total = rewardData.count;
+        //   }
+        //   if (rewardData.list && rewardData.list.length > 0) {
+        //     this.logsData = rewardData.list;
+        //   }
+        // }
+
+        // if (minerinfo.data.resp != null) {
+        //   this.minerShow = true;
+        //   // this.account_type = this.add.kg;
+        //   this.account_level = minerinfo.data.resp.level;
+        //   this.maxStorage = minerinfo.data.resp.maxStorage;
+        //   this.nonce_count = minerinfo.data.resp.maxStorage * 1000 * 1000 *4
+        //   this.CBase_num = minerinfo.data.resp.burntCoin;
+        //   this.reward_num = minerinfo.data.resp.reward;
+        //   this.burn_num = minerinfo.data.resp.author;
+        //   this.pid = BigInt("0x"+String(this.burn_num).substring(26),16).toString()
+        //   this.block_count = minerinfo.data.resp.blockCount;
+        // } else {
+        //   this.minerShow = false;
+        //   // this.account_type = this.add.pt;
+        // }
+        // let res = await Home.addr(address, this.total, 1, 1, this.pagesize, 0);
+        // if (JSON.stringify(res.data) == "{}") {
+        //   this.$message.error(this.add.no_hash);
+        //   this.$router.push("/home");
+        // }
         // console.log(res.data.data.length);
         this.account_add = address;
-        this.tableData = res.data.data;
-        this.historical_transaction_number = addrtx.data.count;
-        this.code_url = address;
-        let that = this;
-        setTimeout(function() {
-          that.getBalance(address);
-        }, 5000);
-        // console.log(this.tableData);
+        // this.tableData = res.data.data;
+        // this.code_url = address;
+        this.loading = false;
       } catch (e) {
         console.log(e);
       }
@@ -449,23 +440,18 @@ export default {
       that.minerDataShow = false;
       that.yieldShow = true;
     },
-    async getBalance(addr) {
-      let balance = await Home.web3relay(addr);
-      this.yue = (balance.data.resp / 10 ** 18).toFixed(4);
-      this.loading = false;
-    },
-    async current_change(currentPage) {
-      this.currentPage = currentPage;
-      let res = await Home.addr(
-        this.account_add,
-        this.total,
-        1,
-        1,
-        this.pagesize,
-        (currentPage - 1) * this.pagesize
-      );
-      this.tableData = res.data.data;
-    },
+    // async current_change(currentPage) {
+    //   this.currentPage = currentPage;
+    //   let res = await Home.addr(
+    //     this.account_add,
+    //     this.total,
+    //     1,
+    //     1,
+    //     this.pagesize,
+    //     (currentPage - 1) * this.pagesize
+    //   );
+    //   this.tableData = res.data.data;
+    // },
     async logs_current_change(logscurrentPage) {
       let that = this;
       let address = this.$route.query.address;

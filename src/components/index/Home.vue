@@ -41,7 +41,7 @@
 
 <script>
 import data from "../../service/data";
-import Home from "../../service/Home";
+import Home from "../../service/home";
 // import Trans from "../../service/Trans";
 
 export default {
@@ -133,9 +133,11 @@ export default {
           this.hashrate_num = dataCall.netPower;
           this.miner_num = latest.data.resp.validatorLen;
           this.block_time = latest.data.resp.avgTime; //平均出块时间
+          let latest_block = latest.data.resp.latestBlock;
+          
           this.tx_speed = 1; //平均处理交
           if (dataCall.block) {
-            this.$Trans.$emit("block_latest", dataCall.block);
+            this.$Trans.$emit("block_latest", latest_block);
           }
           if (dataCall.tx) {
             this.$Trans.$emit("tx_latest", dataCall.tx);
@@ -160,7 +162,7 @@ export default {
 .index_show {
   width: 1200px;
   height: 200px;
-  background: #333671;
+  background: #239e86;
   margin: 0 auto;
   .data_left {
     width: 45%;
@@ -177,7 +179,7 @@ export default {
         font-size: 13px;
         font-family: MicrosoftYaHeiLight;
         font-weight: 300;
-        color: #3ad7ba;
+        color: white;
         margin-bottom: 20px;
       }
     }
@@ -214,7 +216,7 @@ export default {
           font-size: 13px;
           font-family: MicrosoftYaHeiLight;
           font-weight: 300;
-          color: #3ad7ba;
+          color: white;
           margin-bottom: 20px;
         }
       }

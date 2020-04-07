@@ -10,7 +10,7 @@
                     <p class="font-size-12 footer-link-color foot_warning">{{foot.info}}</p>
                 </div>
                 <div class="text-left foot-link-block">
-                    <h4 class="footer-title-color footer-list-title font-size-14">SEEK Explorer</h4>
+                    <h4 class="footer-title-color footer-list-title font-size-14">CBase Explorer</h4>
                     <a href="#" target="_blank" title="" class="footer-link-color footer-list-link font-size-12 ">Submit a bug</a>
                     <a href="#" target="_blank" title="" class="footer-link-color footer-list-link font-size-12 ">API</a>
                 </div>
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="foot_copyright font-size-12">
-                <p>&copy;Copyright 2019 SEEK. All Rights Reserved.</p>
+                <p>&copy;Copyright 2019 CBase. All Rights Reserved.</p>
             </div>
             <!-- <p class="font-size-12 text-primary  mt-3" style="width: 50%; margin-left: auto; margin-right: auto;">
                 比特币等密码币的交易存在风险，在全球范围内一周7天，一天24小时无休止交易，没有每日涨停跌停限制，价格受到新闻事件，各国政策，市场需求等多种因素影响，浮动很大。我们强烈建议您事先调查了解，在自身所能承受的风险范围内参与交易。
@@ -152,7 +152,7 @@ export default {
     display: block;
     &:hover {
       text-decoration: underline;
-      color: #3ad7ba;
+      color: white;
     }
   }
   .share-btn-group {

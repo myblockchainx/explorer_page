@@ -188,7 +188,7 @@
 <script>
 import VueQr from "vue-qr";
 import data from "../../../service/data";
-import Home from "../../../service/Home";
+import Home from "../../../service/home";
 import Web3utils from "../../../service/web3utils.js";
 
 export default {
@@ -359,7 +359,7 @@ export default {
         }
       }
       .bg_active {
-        background: #333671;
+        background: #239e86;
         font-size: 15px;
         font-family: MicrosoftYaHei-Bold;
         font-weight: bold;
@@ -397,7 +397,7 @@ export default {
       font-family: ArialMT;
       span {
         margin: 0 20px;
-        color: #1eb399;
+        color: #239e86;
       }
       dd {
         display: inline-block;
@@ -547,7 +547,7 @@ export default {
           .see_kb_entry {
             margin-left: 20px;
             p {
-              color: #1eb399;
+              color: #239e86;
               font-size: 13px;
               font-family: ArialMT;
               font-weight: 400;

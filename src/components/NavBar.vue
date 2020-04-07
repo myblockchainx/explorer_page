@@ -12,26 +12,27 @@
       <div class="left">
         <div class="ether-logo">
           <div class="logo-wrapper">
-            <a href="/">
-              <img class="logo-img" src="../assets/images/logo.png"/>
+            <a href="/" class="logo-img">
+              <!-- <img class="logo-img" src="../assets/images/logo.png"/> -->
+              CBase Explorer
             </a>
           </div>
         </div>
         <div class="navs" v-if="content !== undefined && isShowNav">
           <div v-for="(nav, index) in content.navs" :key="index" class="nav-item-wrapper"
                v-on:click="scrollToSectionOrOpenLink(nav.active)">
-              <span v-if="nav.active === currentSection" class="nav-item" style="color:#39BDA6;border: 1px solid #39BDA6; border-radius:13px; padding: 2px 8px;">
+              <span v-if="nav.active === currentSection" class="nav-item" style="color:#39BDA6;border: 1px solid white; border-radius:13px; padding: 2px 8px;">
                 {{nav.text}}
               </span>
               <span class="nav-item" v-else>
                 {{nav.text}}
               </span>
           </div>
-          <div class="nav-item-wrapper">
+          <!-- <div class="nav-item-wrapper">
             <div class="nav-item" @click="calculator()">
               {{content.calculator.name}}
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="language-and-menu" v-if="content !== undefined && isShowNav">
@@ -76,12 +77,12 @@
           </el-form-item>
           <div class="resultbox d-flex">
             <h2>{{content.calculator.result}}</h2>
-            <p>{{content.calculator.pd}}<span>{{pd}}</span> SEEK , {{content.calculator.pw}}<span>{{pw}}</span> SEEK , {{content.calculator.pm}}<span>{{pm}}</span> SEEK .</p>
+            <p>{{content.calculator.pd}}<span>{{pd}}</span> CBase , {{content.calculator.pw}}<span>{{pw}}</span> CBase , {{content.calculator.pm}}<span>{{pm}}</span> CBase .</p>
           </div>
           <!-- <h4>{{content.calculator.title3}}</h4>
           <el-form-item :label="content.calculator.currency">
             <el-select v-model="form.currency" @change="currency()">
-              <el-option label="SEEK" value="seek"></el-option>
+              <el-option label="CBase" value="CBase"></el-option>
               <el-option label="BTC" value="btc"></el-option>
               <el-option label="EUR" value="eur"></el-option>
               <el-option label="USD" value="usd"></el-option>
@@ -165,7 +166,7 @@ export default {
         size: "0",
         unit: "tb",
         erpd: "0.4",
-        currency: "seek",
+        currency: "CBase",
         amount: "394"
       },
       pd: "0",
@@ -253,7 +254,7 @@ export default {
     },
     currency() {
       let that = this;
-      if (that.form.currency == "seek") {
+      if (that.form.currency == "CBase") {
         that.all_left = "Burst";
         that.f_right_unit = "BTC";
         that.s_right_unit = "EUR";
@@ -328,7 +329,7 @@ export default {
 .nav-container {
   // height : first section 84px, later: 63px
   // height: #{$nav-bar-height-wide};
-  background-color: #1d1f4e;
+  background-color: #239e86;
   z-index: 100;
   padding-bottom: 20px;
 }
@@ -349,8 +350,11 @@ export default {
     .logo-wrapper {
       height: 42px;
       width: auto;
+      
       .logo-img {
-        height: 100%;
+        font-size: 30px;
+        color: #f4f9f6;
+        font-weight: 600;
       }
     }
   }
@@ -358,7 +362,7 @@ export default {
     position: relative;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     width: calc(80% - 44px - 77px);
     height: 100%;
     max-width: 300px;
@@ -505,7 +509,7 @@ export default {
 
 // when is not first section
 .nav-solid {
-  background-color: #1d1f4e;
+  background-color: #239e86;
   // height: #{$nav-bar-height-thin};
   // box-shadow: 0 1px 0 0 rgba(2, 21, 40, 0.04);
   .top-solid {

@@ -90,7 +90,7 @@
 
 <script>
 import data from "../../../service/data";
-import Home from "../../../service/Home";
+import Home from "../../../service/home";
 
 export default {
   name: "blocklistdata",

@@ -64,7 +64,7 @@
                 "check_all": "查看全部"
             },
             "foot": {
-                "info": "SEEKCHAIN是一个基于存储资源和IPOB一致性算法构建的主动通货紧缩的Defi基础设施"
+                "info": "CBaseCHAIN是一个基于存储资源和IPOB一致性算法构建的主动通货紧缩的Defi基础设施"
             },
             "block_list": {
                 "title": "区块个数：",
@@ -80,6 +80,7 @@
                 "miner": "验证者",
                 "epoch": "Epoch",
                 "gas_used": "Gas Used",
+                "gas_price": "Gas Price",
                 "gaslimit": "Gas Limit",
                 "size": "Size",
                 "reward": "Reward",
@@ -92,7 +93,7 @@
                 "parent": "Parent Hash",
                 "bolck_mn": "验证者",
                 "bolck_mnx": "矿池",
-                "block_num": "区块大小",
+                "block_num": "Chunk数",
                 "gas_limit": "Gas Limit",
                 "block_reward": "Block Reward",
                 "extra": "Extra Data",
@@ -163,7 +164,7 @@
                 "kg": "验证者",
                 "pt": "普通",
                 "account_level": "账户等级",
-                "seek_num": "累计燃烧SEEK数量",
+                "CBase_num": "累计燃烧CBase数量",
                 "reward_num":"累计收益",
                 "burn_num": "燃烧权益代理地址",
                 "block_count":"出块数量",
@@ -208,7 +209,7 @@
                 "account_level": "账户等级",                
                 "kg": "验证者",
                 "pt": "普通",
-                "seek_num": "累计燃烧SEEK数量",
+                "CBase_num": "累计燃烧CBase数量",
                 "reward_num":"累计收益",
                 "historical_transaction_number": "历史交易笔数",
                 "nonce_count":"nonce最大数量",
@@ -433,7 +434,7 @@
                 "check_all": "查看全部"
             },
             "foot": {
-                "info": "SEEKCHAIN是一个基于存储资源和IPOB一致性算法构建的主动通货紧缩的Defi基础设施"
+                "info": "CBaseCHAIN是一个基于存储资源和IPOB一致性算法构建的主动通货紧缩的Defi基础设施"
             },
             "block_list": {
                 "title": "区块个数：",
@@ -449,6 +450,7 @@
                 "miner": "验证者",
                 "epoch": "Epoch",
                 "gas_used": "Gas Used",
+                "gas_price": "Gas Price",
                 "gaslimit": "Gas Limit",
                 "size": "Size",
                 "reward": "Reward",
@@ -461,7 +463,7 @@
                 "parent": "Parent Hash",
                 "bolck_mn": "验证者",
                 "bolck_mnx": "矿池",
-                "block_num": "区块大小",
+                "block_num": "Chunk数",
                 "gas_limit": "Gas Limit",
                 "block_reward": "Block Reward",
                 "extra": "Extra Data",
@@ -532,7 +534,7 @@
                 "kg": "验证者",
                 "pt": "普通",
                 "account_level": "账户等级",
-                "seek_num": "累计燃烧SEEK数量",
+                "CBase_num": "累计燃烧CBase数量",
                 "reward_num":"累计收益",
                 "burn_num": "燃烧权益代理地址",
                 "block_count":"出块数量",
@@ -577,7 +579,7 @@
                 "account_level": "账户等级",                
                 "kg": "验证者",
                 "pt": "普通",
-                "seek_num": "累计燃烧SEEK数量",
+                "CBase_num": "累计燃烧CBase数量",
                 "reward_num":"累计收益",
                 "nonce_count":"nonce最大数量",
                 "pid":"PID",

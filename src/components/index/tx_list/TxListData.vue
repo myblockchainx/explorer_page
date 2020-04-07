@@ -86,7 +86,7 @@
 
 <script>
 import data from "../../../service/data";
-import Home from "../../../service/Home";
+import Home from "../../../service/home";
 
 export default {
   name: "txlistdata",
@@ -251,7 +251,7 @@ color: #2a48de;
       .txlistdata_info {
         font-family: MicrosoftYaHei;
         font-size: 14px;
-        color: #1d1f4e;
+        color: #239e86;
       }
     }
     .bd_show_data {

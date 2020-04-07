@@ -25,8 +25,8 @@
           <dl>{{hash}}</dl>
         </dd>
         <dd class="d-flex align-items-center">
-          <p>{{list.parent}}</p>
-          <dl class="green">{{parent}}</dl>
+          <p>Epoch Id</p>
+          <dl class="green">{{epoch_id}}</dl>
         </dd>
         <!-- <dd class="d-flex align-items-center">
           <p>{{list.bolck_mn}}</p>
@@ -43,20 +43,20 @@
         </dd> -->
         <dd class="d-flex align-items-center">
           <p>{{list.block_num}}</p>
-          <dl>{{block_num}} Bytes</dl>
+          <dl>{{block_num}} </dl>
         </dd>
         <dd class="d-flex align-items-center">
-          <p>{{list.gas_used}}</p>
-          <dl class="green">{{gas_used}}</dl>
+          <p>{{list.gas_price}}</p>
+          <dl class="green">{{gas_price}}</dl>
         </dd>
-        <dd class="d-flex align-items-center">
+        <!--<dd class="d-flex align-items-center">
           <p>{{list.gas_limit}}</p>
           <dl class="green">{{gas_limit}}</dl>
         </dd>
-        <!-- <dd class="d-flex align-items-center">
+        <dd class="d-flex align-items-center">
           <p>{{list.block_reward}}</p>
           <dl class="green">{{block_reward}}</dl>
-        </dd> -->
+        </dd> 
         <dd class="d-flex align-items-center">
           <p>{{list.extra}}</p>
           <dl class="green">{{extra}}</dl>
@@ -64,7 +64,7 @@
         <dd class="d-flex align-items-center">
           <p>{{list.baseTarget}}</p>
           <dl class="green">{{baseTarget}}</dl>
-        </dd>
+        </dd>-->
       </div>
     </div>
     <div class="bd_show" v-if="unshow">
@@ -173,14 +173,14 @@
             width="180"
             :label="list.extime">
             <template slot-scope="scope">
-              <span>{{ scope.row.timestamp * 1000 | formatDate}}</span>
+              <span>{{ scope.row.timestamp | formatDate}}</span>
             </template>
           </el-table-column>
           <el-table-column
             :label="list.from">
             <template slot-scope="scope">
               <!-- <span style="color:#39BDA6;">{{ scope.row.from }}</span> -->
-              <a class="cursor-pointer" style="color:#39BDA6;" @click="tokenrelay(scope.row.from)">{{scope.row.from}}</a>
+              <a class="cursor-pointer" style="color:#39BDA6;" @click="tokenrelay(scope.row.signer_id)">{{scope.row.signer_id}}</a>
             </template>
           </el-table-column>
           <el-table-column
@@ -190,7 +190,7 @@
                 <img src="../../../assets/images/index/others/roll_out.png" />
                 <!-- <span style="color:#39BDA6; text-overflow: ellipsis; overflow: hidden;">{{ scope.row.to }}</span> -->
                 <div class="cell">
-                  <a class="cursor-pointer" style="color:#39BDA6;" @click="tokenrelay(scope.row.to)">{{scope.row.to}}</a>
+                  <a class="cursor-pointer" style="color:#39BDA6;" @click="tokenrelay(scope.row.receiver_id)">{{scope.row.receiver_id}}</a>
                 </div>
               </div>
             </template>
@@ -199,7 +199,7 @@
             width="150"
             :label="list.value">
             <template slot-scope="scope">
-              <span>{{ (scope.row.value / 10 ** 18).toFixed(4) }}</span>
+              <span>{{ scope.row.value  }}</span>
             </template>
           </el-table-column>
         </el-table>
@@ -220,7 +220,7 @@
 
 <script>
 import data from "../../../service/data";
-import Home from "../../../service/Home";
+import Home from "../../../service/home";
 
 export default {
   name: "blocklistdetaildata",
@@ -231,11 +231,12 @@ export default {
       exchange: "",
       hash: "",
       parent: "",
+      epoch_id:"",
       miner: "",
       author: "",
       epoch: "",
       block_num: "",
-      gas_used: "",
+      gas_price: "",
       gas_limit: "",
       unshow: false,
       blockReward: "",
@@ -281,62 +282,58 @@ export default {
       try {
         let block = this.$route.query.block;
         let res = await Home.block(block);
-        let reg = await Home.blockRewardData(block);
+        
+        // let reg = await Home.blockRewardData(block);
         let tabledata = await Home.findTxByNumber(block, this.currentpage);
-        if (res.status == 200 && reg.status == 200) this.loading = false;
+        
+        if (res.status == 200 ) this.loading = false;
         if (JSON.stringify(res.data) == "{}") {
           this.$message.error(this.list.no_block);
           this.$router.push("/home");
         } else {
-          this.blcok_height = res.data.number;
-          this.times = res.data.timestamp * 1000;
-          this.exchange = res.data.txs.length;
-          this.hash = res.data.hash;
-          this.parent = res.data.parentHash;
+          res = res.data.resp.header;
+          console.log("res:",res)
+          this.blcok_height = res.height;
+          this.times = res.timestamp ;
+          this.exchange = res.txs.length;
+          this.hash = res.hash;
+          this.epoch_id = res.epoch_id;
           // this.miner = res.data.miner;
-          this.miner = res.data.miner;
+          this.miner = res.createdby;
           // this.epoch = res.data.to;
-          this.block_num = res.data.size;
-          this.gas_used = res.data.gasUsed;
-          this.gas_limit = res.data.gasLimit;
-          this.extra = res.data.extraData;
-          this.baseTarget = res.data.baseTarget;
-          // console.log(res);
+          this.block_num = res.chunks_included;
+          this.gas_price = res.gas_price;
         }
-        if (
-          !reg.data.resp.minerReward &&
-          !reg.data.resp.teamReward &&
-          reg.data.resp.rewardInviter.length == 0
-        ) {
-          this.unshow = false;
-        } else {
-          this.unshow = true;
-          this.blockReward = (
-            reg.data.resp.minerReward.rewardNum /
-            10 ** 18 /
-            0.83
-          ).toFixed(10);
-          this.minerAddr = reg.data.resp.minerReward.address;
-          this.minerNum = (
-            reg.data.resp.minerReward.rewardNum /
-            10 ** 18
-          ).toFixed(10);
-          this.inviteData = reg.data.resp.rewardInviter;
-          this.teamAddr = reg.data.resp.teamReward.address;
-          this.teamNum = (
-            reg.data.resp.teamReward.rewardNum /
-            10 ** 18
-          ).toFixed(10);
-          this.teamrate =
-            (Number(this.teamNum) / Number(this.blockReward) * 100).toFixed(2) +
-            "%";
-        }
-        if (tabledata.data.resp.code == 1000) {
-          this.tableData = tabledata.data.resp.data.content;
-          this.total = tabledata.data.resp.data.total;
-        } else {
-          this.tableData = [];
-        }
+        // if (
+        //   !reg.data.resp.minerReward &&
+        //   !reg.data.resp.teamReward &&
+        //   reg.data.resp.rewardInviter.length == 0
+        // ) {
+        //   this.unshow = false;
+        // } else {
+        //   this.unshow = true;
+        //   this.blockReward = (
+        //     reg.data.resp.minerReward.rewardNum /
+        //     10 ** 18 /
+        //     0.83
+        //   ).toFixed(10);
+        //   this.minerAddr = reg.data.resp.minerReward.address;
+        //   this.minerNum = (
+        //     reg.data.resp.minerReward.rewardNum /
+        //     10 ** 18
+        //   ).toFixed(10);
+        //   this.inviteData = reg.data.resp.rewardInviter;
+        //   this.teamAddr = reg.data.resp.teamReward.address;
+        //   this.teamNum = (
+        //     reg.data.resp.teamReward.rewardNum /
+        //     10 ** 18
+        //   ).toFixed(10);
+        //   this.teamrate =
+        //     (Number(this.teamNum) / Number(this.blockReward) * 100).toFixed(2) +
+        //     "%";
+        // }
+          this.tableData = tabledata.data.resp.tx;
+          this.total = tabledata.data.resp.tx.count;
       } catch (e) {
         // that.$notify.error({title: that.$t("ERROR"), message: e.toString()});
         console.log(e);

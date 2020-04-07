@@ -39,8 +39,8 @@
             <dl>{{account_level}}</dl>
           </dd>
           <dd class="d-flex align-items-center">
-            <p>{{caaddress.seek_num}}</p>
-            <dl>{{seek_num}}</dl>
+            <p>{{caaddress.CBase_num}}</p>
+            <dl>{{CBase_num}}</dl>
           </dd>
           <dd class="d-flex align-items-center">
             <p>{{caaddress.historical_transaction_number}}</p>
@@ -381,7 +381,7 @@
 <script>
 import VueQr from "vue-qr";
 import data from "../../../service/data";
-import Home from "../../../service/Home";
+import Home from "../../../service/home";
 import Web3utils from "../../../service/web3utils.js";
 
 export default {
@@ -407,7 +407,7 @@ export default {
       yue: "",
       account_type: "",
       account_level: "",
-      seek_num: "",
+      CBase_num: "",
       historical_transaction_number: "",
       //second
       p1_active: true,
@@ -748,7 +748,7 @@ export default {
         }
       }
       .bg_active {
-        background: #333671;
+        background: #239e86;
         font-size: 15px;
         font-family: MicrosoftYaHei-Bold;
         font-weight: bold;
@@ -789,7 +789,7 @@ export default {
       font-family: ArialMT;
       span {
         margin: 0 20px;
-        color: #1eb399;
+        color: #239e86;
       }
       dd {
         display: inline-block;

@@ -30,12 +30,12 @@
           </el-form-item>
           <div class="resultbox d-flex">
             <h2>{{content.calculator.result}}</h2>
-            <p>{{content.calculator.pd}}<span>{{pd}}</span> SEEK , {{content.calculator.pw}}<span>{{pw}}</span> SEEK , {{content.calculator.pm}}<span>{{pm}}</span> SEEK .</p>
+            <p>{{content.calculator.pd}}<span>{{pd}}</span> CBase , {{content.calculator.pw}}<span>{{pw}}</span> CBase , {{content.calculator.pm}}<span>{{pm}}</span> CBase .</p>
           </div>
           <!-- <h4>{{content.calculator.title3}}</h4>
           <el-form-item :label="content.calculator.currency">
             <el-select v-model="form.currency" @change="currency()">
-              <el-option label="SEEK" value="seek"></el-option>
+              <el-option label="CBase" value="CBase"></el-option>
               <el-option label="BTC" value="btc"></el-option>
               <el-option label="EUR" value="eur"></el-option>
               <el-option label="USD" value="usd"></el-option>
@@ -95,7 +95,7 @@ export default {
         size: "0",
         unit: "tb",
         erpd: "0.4",
-        currency: "seek",
+        currency: "CBase",
         amount: "394"
       },
       pd: "0",
@@ -180,7 +180,7 @@ export default {
     },
     currency() {
       let that = this;
-      if (that.form.currency == "seek") {
+      if (that.form.currency == "CBase") {
         that.all_left = "Burst";
         that.f_right_unit = "BTC";
         that.s_right_unit = "EUR";

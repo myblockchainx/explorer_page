@@ -6,7 +6,7 @@ var data_url = "http://localhost:8090/"
 // var url = "http://localhost:3001/";
 // var url = "http://106.13.216.136:3001/"
 // var url = urls;
-class Home {
+class home {
     /**
      * 首页公告
      */
@@ -24,6 +24,21 @@ class Home {
             "method":method,
             "params":params,
             "id":"dontacare"})
+    }
+    // getAccountDetail(account) {
+    //     return axios({
+    //         method: 'GET',
+    //         url: data_url + 'api/block/getAccount',
+    //         params: { "account": account }
+    //     });
+    // }
+    //index--> blocklistdetail 查询block信息
+    block(block) {
+        return axios({
+            method: 'GET',
+            url: data_url + 'api/block/getHeaderByHeight',
+            params: { "height": block }
+        });
     }
     blockList(){
         return axios({
@@ -46,6 +61,13 @@ class Home {
             params:{}
         })
     }
+    getAccountById(account_id){
+        return axios({
+            method: 'GET',
+            url : data_url + 'api/account/getAccount',
+            params:{"account":account_id}
+        })
+    }
     totalHashRate() {
         return axios({
             method: 'POST',
@@ -61,22 +83,7 @@ class Home {
             data: {}
         });
     }
-    //当前区块高度,平均出块时间,平均处理交易，最新区块数据
-    reloadBlocks() {
-        return axios({
-            method: 'POST',
-            url: url + 'api/block_latest',
-            data: {}
-        });
-    }
-    //index--> blocklistdetail 查询block信息
-    block(block) {
-        return axios({
-            method: 'POST',
-            url: url + 'block',
-            data: { "block": block }
-        });
-    }
+    
     //index--> blocklistdetail 查询block奖励明细
     blockRewardData(block) {
         return axios({
@@ -88,9 +95,9 @@ class Home {
     //index--> txeadetail 查询hash信息
     transactionRelay(tx) {
         return axios({
-            method: 'POST',
-            url: url + 'transactionRelay',
-            data: { "tx": tx, "isTransfer": false }
+            method: 'GET',
+            url: data_url + 'api/transaction/getTxByHash',
+            params: { "hash": tx, }
         });
     }
     //index--> eaaddress 查询address信息
@@ -220,9 +227,9 @@ class Home {
     }
     minerList(page) {
         return axios({
-            method: 'POST',
-            url: url + 'api/miner_list',
-            data: { "page": page }
+            method: 'GET',
+            url: data_url + 'api/account/getAccountList',
+            params: { "page": page ,"isValidator":true}
         });
     }
     //矿工页面信息（全部矿工）
@@ -251,19 +258,19 @@ class Home {
     //区块详情 --> 交易表格
     findTxByNumber(block, page) {
         return axios({
-            method: 'POST',
-            url: url + 'api/findTxByNumber',
-            data: { "blockNumber": block, "page": page }
+            method: 'GET',
+            url: data_url + 'api/transaction/getTxByHeight',
+            params: { "height": block, "page": page }
         });
     }
     //矿工个人信息 --> 收益明细
-    getBenefitData(address, page) {
-        return axios({
-            method: 'POST',
-            url: url + 'api/get_benefit_data',
-            data: { "address": address, "page": page }
-        });
-    }
+    // getBenefitData(address, page) {
+    //     return axios({
+    //         method: 'POST',
+    //         url: url + 'api/get_benefit_data',
+    //         data: { "address": address, "page": page }
+    //     });
+    // }
 }
 
-export default new Home();
+export default new home();

@@ -12,7 +12,7 @@
           </router-link>
         </div>
         <div class="message_data d-flex align-items-center justify-content-space-between" v-for="(item,index) in message_data" :key="index" v-if="index < 5">
-          <router-link :to="{ path: 'blocklistdetail', query: { block: item.number}}">
+          <router-link :to="{ path: 'blocklistdetail', query: { block: item.height}}">
             <div class="data_time">
               <dl>{{item.height}}</dl>
               <p>{{item.timestamp | formatDate}}</p>
@@ -22,8 +22,8 @@
             <dl class="d-flex align-items-center ">By
               <dd v-for="creat in item.createdby" :key="creat">
                 <!-- <a class="cursor-pointer" @click="tokenrelay(item.miner)" :disabled="isDisable">{{item.miner}}</a> -->
-                {{creat}}
-                <!--<router-link :to="{ path: 'eaaddress', query: { address: item.miner}}">{{item.miner | subAddress}}</router-link>-->
+                <!-- {{creat}} -->
+                <router-link :to="{ path: 'eaaddress', query: { address: creat}}">{{creat}}</router-link>
               </dd>
             </dl>
             <p>{{item.txs.length}} Transactions</p>
@@ -40,7 +40,7 @@
             <p>{{message.now_exchange}}</p>
           </div>
           <router-link to="txlist">
-            <div class="right_title_r d-flex align-items-center">{{message.check_all}}<img src="../../assets/images/index/read_more_white.png" /></div>
+            <div class="right_title_r d-flex align-items-center">{{message.check_all}}<img src="../../assets/images/index/read_more_green.png" /></div>
           </router-link>
         </div>
         <div class="exchange_data d-flex align-items-center justify-content-space-between" v-for="(exchange,index1) in exchange_data" :key="index1" v-if="index1 < 5">
@@ -80,7 +80,7 @@
 
 <script>
 import data from "../../service/data";
-import Home from "../../service/Home";
+import Home from "../../service/home";
 
 export default {
   name: "indexmessage",
@@ -121,7 +121,7 @@ export default {
       this.$Trans.$off("block_latest");
       this.$Trans.$on("block_latest", data => {
         if (data && data.number != this.number) {
-          this.number = data.number;
+          this.number = data.height;
           this.message_data.unshift(data);
           if (this.message_data && this.message_data.length > 10) {
             this.message_data.pop();
@@ -133,14 +133,15 @@ export default {
     async reloadBlocks() {
       // let that = this;
       this.nowtimes = parseInt(Date.parse(new Date()) / 1000);
-      // console.log(this.nowtimes);
+      // console.log(this.nowtimes);r
       try {
-        let res = await Home.reloadBlocks();
+        // let res = await Home.reloadBlocks();
         let datas = await Home.blockList();
+        console.log("datas:",datas)
         if (datas.data.resp.blockList) {
           // this.message_data = res.data.resp.blocks;
           this.message_data = datas.data.resp.blockList
-          this.number = res.data.resp.blocks[0].number;
+          this.number = datas.data.resp.blockList[0].height;
         }
         // console.log(res);
       } catch (e) {
@@ -167,13 +168,14 @@ export default {
     async tokenrelay(address) {
       this.loading = true;
       try {
-        let res = await Home.tokenrelay(address);
-        // console.log(res.data);
-        if (res.data == "" || res.data == null) {
-          this.$router.push({ path: "eaaddress", query: { address: address } });
-        } else {
-          this.$router.push({ path: "caaddress", query: { address: address } });
-        }
+        this.$router.push({ path: "eaaddress", query: { address: address } });
+        // let res = await Home.tokenrelay(address);
+        // // console.log(res.data);
+        // if (res.data == "" || res.data == null) {
+        //   this.$router.push({ path: "eaaddress", query: { address: address } });
+        // } else {
+        //   this.$router.push({ path: "caaddress", query: { address: address } });
+        // }
       } catch (e) {
         console.log(e);
       }
@@ -257,8 +259,7 @@ export default {
         }
         .left_title_r {
           padding: 6px 10px;
-          border: 1px solid #1eb399;
-          color: #1eb399;
+          color: #239e86;
           cursor: pointer;
           img {
             padding-left: 5px;
@@ -307,7 +308,7 @@ export default {
             color: rgba(71, 77, 120, 1);
             text-align: left;
             dd {
-              color: #1eb399;
+              color: #239e86;
               padding-left: 5px;
               display: inline-block;
               width: 180px;
@@ -316,7 +317,7 @@ export default {
               white-space: nowrap;
               margin: 0;
               a {
-                color: #1eb399;
+                color: #239e86;
               }
             }
           }
@@ -361,9 +362,8 @@ export default {
         }
         .right_title_r {
           padding: 6px 10px;
-          // border: 1px solid #1EB399;
-          background: #1eb399;
-          color: #ffffff;
+          // border: 1px solid red;
+          color: #239e86;
           cursor: pointer;
           img {
             padding-left: 5px;
@@ -408,7 +408,7 @@ export default {
             color: rgba(71, 77, 120, 1);
             text-align: left;
             dd {
-              color: #1eb399;
+              color: #239e86;
               display: inline-block;
               width: 350px;
               // overflow: hidden;
@@ -422,7 +422,7 @@ export default {
             font-size: 13px;
             font-family: ArialMT;
             font-weight: 400;
-            color: #1eb399;
+            color: #239e86;
             text-align: left;
             display: inline-block;
             width: 120px;
@@ -433,7 +433,7 @@ export default {
             line-height: 14px;
           }
           a {
-            color: #1eb399;
+            color: #239e86;
           }
         }
       }

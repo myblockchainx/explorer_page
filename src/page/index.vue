@@ -18,7 +18,7 @@
 import NavBar from "../components/NavBar";
 import MiniNotice from "../components/MiniNotice";
 import selectinput from "../components/SelectInput";
-import home from "../components/index/Home";
+import home from "../components/index/home";
 import message from "../components/index/message";
 import foot from "../components/Footer";
 export default {

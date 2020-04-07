@@ -32,10 +32,17 @@ isAddress(address) {
     }
 };
 
+isAccount(acc){
+    if(acc && acc.length && isNaN(acc)> 0 && acc.length < 44){
+        return true;
+    }
+    return false;
+}
+
 isTransaction(tx) {
-    let rags = /^[0-9a-fA-F]{64}$/;
-    let ragb = /^0x[0-9a-fA-F]{64}$/;
-    if (rags.test(tx) || ragb.test(tx)) {
+    let rags= /^[0-9a-zA-Z]{44}$/
+    // let ragb = /^0x[0-9a-fA-F]{64}$/;
+    if (rags.test(tx)) {
         // check if it has the basic requirements of an address
         return true;
     } else {
@@ -43,5 +50,16 @@ isTransaction(tx) {
         return false;
     }
 };
+// isTransaction(tx) {
+//     let rags = /^[0-9a-fA-F]{64}$/;
+//     let ragb = /^0x[0-9a-fA-F]{64}$/;
+//     if (rags.test(tx) || ragb.test(tx)) {
+//         // check if it has the basic requirements of an address
+//         return true;
+//     } else {
+//         // Otherwise check each case
+//         return false;
+//     }
+// };
 }
 export default new Web3utils();

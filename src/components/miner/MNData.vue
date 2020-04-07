@@ -25,7 +25,7 @@
           </div>
         </div>
         <!-- 累计燃烧 -->
-        <div class="message_data d-flex align-items-center justify-content-space-between" >
+        <!-- <div class="message_data d-flex align-items-center justify-content-space-between" >
           <div class="data_time">
             <dl>{{miner.all_mn.brun_total}}</dl>
           </div>
@@ -33,7 +33,6 @@
             <dl>{{brun_total}}</dl>
           </div>
         </div>
-        <!-- 累计收益 -->
         <div class="message_data d-flex align-items-center justify-content-space-between" >
           <div class="data_time">
             <dl>{{miner.all_mn.yield_total}}</dl>
@@ -41,7 +40,7 @@
           <div class="data_add">
             <dl>{{yield_total}}</dl>
           </div>
-        </div>
+        </div> -->
       </div>
       <!-- <div class="message_right">
         <div class="right_title d-flex align-items-center">
@@ -94,7 +93,7 @@
             :label="miner.all_mn_data.id">
             <template slot-scope="scope">
               <!-- <span style="color:#39BDA6;">{{ scope.row.witness }}</span> -->
-              <router-link :to="{ path: 'eaaddress', query: { address: scope.row.address}}" style="color:#39BDA6;" class="green cursor-pointer">{{scope.row.address}}</router-link>
+              <router-link :to="{ path: 'eaaddress', query: { address: scope.row.account_id}}" style="color:#39BDA6;" class="green cursor-pointer">{{scope.row.account_id}}</router-link>
             </template>
           </el-table-column>
           <!-- <el-table-column
@@ -106,10 +105,10 @@
           <el-table-column
             :label="miner.all_mn_data.block">
             <template slot-scope="scope">
-              <span style="color:#39BDA6;">{{ scope.row.blockCount }}</span>
+              <span style="color:#39BDA6;">{{ scope.row.num_header }}</span>
             </template>
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             :label="miner.all_mn_data.award">
             <template slot-scope="scope">
               <span>{{ scope.row.reward | typefixed(4) }}</span>
@@ -131,10 +130,9 @@
             :label="miner.all_mn_data.block_height"
             width="200">
             <template slot-scope="scope">
-              <!-- <span style="color:#39BDA6;">{{ scope.row.lastCountTo }}</span> -->
               <router-link :to="{ path: 'blocklistdetail', query: { block: scope.row.blockNumber}}"><span style="color:#39BDA6;">{{scope.row.blockNumber}}</span></router-link>
-            </template>
-          </el-table-column>
+            </template> 
+          </el-table-column>-->
           <!-- <el-table-column
             :label="miner.all_mn_data.average">
             <template slot-scope="scope">
@@ -159,7 +157,7 @@
 
 <script>
 import data from "../../service/data";
-import Home from "../../service/Home";
+import Home from "../../service/home";
 
 export default {
   name: "mndata",
@@ -198,28 +196,29 @@ export default {
       // console.log(this.$route.query.hash);
       try {
         let res = await Home.minerList(page);
-
+        console.log("res:miner:",res)
         // console.log(mndata.data);
         if (res.status == 200) this.loading = false;
         let datas = res.data.resp;
         if (datas) {
-          if (datas.list && datas.list.length > 0) {
-            this.tableData = datas.list;
+          if (datas.accountList && datas.accountList.length > 0) {
+            this.tableData = datas.accountList;
           }
           if (datas.count > 0) {
             this.total = datas.count;
+            this.miner_num = datas.count;
           }
         }
         // this.tableData = res.data.resp;
         // this.total = res.data.resp.length;
 
-        let latedata = await Home.dataCal();
-        if (latedata.data.resp.code == 1000) {
-          let dataCall = latedata.data.resp.data;
-          this.miner_num = dataCall.count;
-          this.brun_total = dataCall.burnt;
-          this.yield_total = dataCall.reward;
-        }
+        // let latedata = await Home.dataCal();
+        // if (latedata.data.resp.code == 1000) {
+        //   let dataCall = latedata.data.resp.data;
+        //   this.miner_num = dataCall.count;
+        //   this.brun_total = dataCall.burnt;
+        //   this.yield_total = dataCall.reward;
+        // }
         // this.versiondata = verdata.data;
       } catch (e) {
         console.log(e);
@@ -238,7 +237,7 @@ export default {
   },
   filters: {
     typefixed: function(value, num) {
-      let nowrate = value.toFixed(num);
+      let nowrate = value;
       return nowrate;
     }
   }
@@ -269,7 +268,7 @@ export default {
         margin: 0 40px 0 20px;
       }
       dl {
-        color: #1eb399;
+        color: #239e86;
         display: inline-block;
       }
     }
@@ -299,8 +298,7 @@ export default {
           }
           .left_title_r {
             padding: 6px 10px;
-            border: 1px solid #1eb399;
-            color: #1eb399;
+            color: #239e86;
             cursor: pointer;
             img {
               padding-left: 5px;
@@ -359,9 +357,8 @@ export default {
           }
           .right_title_r {
             padding: 6px 10px;
-            // border: 1px solid #1EB399;
-            background: #1eb399;
-            color: #ffffff;
+            // border: 1px solid red;
+            color: #239e86;
             cursor: pointer;
             img {
               padding-left: 5px;
@@ -404,7 +401,7 @@ export default {
               color: rgba(71, 77, 120, 1);
               text-align: left;
               dd {
-                color: #1eb399;
+                color: #239e86;
                 display: inline-block;
                 width: 350px;
                 overflow: hidden;
@@ -418,7 +415,7 @@ export default {
               font-size: 13px;
               font-family: ArialMT;
               font-weight: 400;
-              color: #1eb399;
+              color: #239e86;
               text-align: left;
               display: inline-block;
               width: 120px;

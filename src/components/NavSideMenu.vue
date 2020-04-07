@@ -1,18 +1,19 @@
 <template>
   <section class="sidebar">
     <div class="logo-wrapper">
-      <img class="logo-img" src="../assets/images/logo.png"/>
+      <!-- <img class="logo-img" src="../assets/images/logo.png"/> -->
+      CBase Explorer
     </div>
     <div class="close-button cursor-pointer" @click="close"></div>
     <div class="sidebar-nav">
       <span v-for="(nav, index) in navs" :key="index" @click="scrollToSection(nav.active)" class="nav-text">
-        <span v-if="nav.active===currentSection" style="color: rgb(57, 189, 166);font-weight:bold; "> {{nav.text}} </span>
+        <span v-if="nav.active===currentSection" style="color: white;font-weight:bold; "> {{nav.text}} </span>
         <span v-else> {{nav.text}} </span>
       </span>
       <router-link  class="nav-text" to="calculator">
-      <span class="nav-text">
+      <!-- <span class="nav-text">
         {{content.calculator.name}}
-      </span>
+      </span> -->
       </router-link>
     </div>
   </section>
@@ -93,7 +94,7 @@
 
         &.active {
           font-weight: 600;
-          color: black;
+          color: #239e86;
         }
       }
     }

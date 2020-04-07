@@ -1,7 +1,7 @@
 {
-  "name": "seek",
+  "name": "CBase",
   "version": "1.0.0",
-  "description": "seek",
+  "description": "CBase",
   "author": "",
   "private": true,
   "scripts": {

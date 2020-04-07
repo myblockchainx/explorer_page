@@ -31,12 +31,12 @@
             <router-link :to="{ path: 'eaaddress', query: { address: miner}}" class="green cursor-pointer">{{miner}}</router-link>
           </dl>
         </dd>
-        <dd class="d-flex align-items-center">
+        <!--<dd class="d-flex align-items-center">
           <p>{{list.status}}</p>
           <dl class="orange" v-if="statusShow">Pedding</dl>
           <dl class="green" v-if="status && !statusShow">Success</dl>
           <dl class="red" v-if="!status && !statusShow">Fail</dl>
-        </dd>
+        </dd>-->
         <dd class="d-flex align-items-center">
           <p>{{list.roll_out}}</p>
           <dl class="green cursor-pointer" @click="tokenrelay(roll_out)">{{roll_out}}</dl>
@@ -49,7 +49,7 @@
           <p>{{list.roll_out_money}}</p>
           <dl>{{roll_out_money}}</dl>
         </dd>
-        <dd class="d-flex align-items-center">
+        <!--<dd class="d-flex align-items-center">
           <p>{{list.gas_limit}}</p>
           <dl>{{gas_limit}}</dl>
         </dd>
@@ -61,10 +61,10 @@
           <p>{{list.gas_price}}</p>
           <dl>{{gas_price}}</dl>
         </dd>
-        <!-- <dd class="d-flex align-items-center">
+         <dd class="d-flex align-items-center">
           <p>{{list.power}}</p>
           <dl>{{power}}</dl>
-        </dd> -->
+        </dd>
         <dd class="d-flex align-items-center">
           <p>{{list.np}}</p>
           <dl>{{np}}</dl>
@@ -72,7 +72,7 @@
         <dd class="d-flex">
           <p>{{list.data}}</p>
           <dl class="tx_data">{{data}}</dl>
-        </dd>
+        </dd> -->
       </div>
     </div>
   </section>
@@ -80,7 +80,7 @@
 
 <script>
 import data from "../../../service/data";
-import Home from "../../../service/Home";
+import Home from "../../../service/home";
 
 export default {
   name: "txeadetaildata",
@@ -144,32 +144,34 @@ export default {
       this.loading = true;
       try {
         let txhash = this.$route.query.hash;
+        // console.log("txhash:",txhash)
         let res = await Home.transactionRelay(txhash);
-        // console.log(JSON.stringify(res.data));
+        console.log("Res----:",res);
         if (JSON.stringify(res.data) == "{}") {
           this.$message.error(this.list.no_hash);
           this.$router.push("/home");
         } else {
+          res = res.data.resp.tx;
           this.loading = false;
-          this.hash = res.data.hash;
-          this.block = res.data.blockNumber;
-          if (res.data.blockNumber == null) {
-            this.statusShow = true;
-          } else {
-            this.status = res.data.status;
-          }
+          this.hash = res.hash;
+          this.block = res.height;
+          // if (res.data.height != null) {
+          //   this.statusShow = true;
+          // } else {
+          //   this.status = res.data.status;
+          // }
           // this.block_bc = res.data.hash;
-          this.times = res.data.timestamp * 1000;
-          this.miner = res.data.miner;
-          this.roll_out = res.data.from;
-          this.shift_to = res.data.to;
-          this.roll_out_money = (res.data.value / 10 ** 18).toFixed(4);
-          this.gas_limit = res.data.gas;
-          this.gas_used = res.data.gasUsed;
-          this.gas_price = res.data.gasPrice;
-          this.power = this.gas_used * this.gas_price;
-          this.np = res.data.nonce;
-          this.data = res.data.input;
+          this.times = res.timestamp;
+          this.miner = res.createdby;
+          this.roll_out = res.signer_id;
+          this.shift_to = res.receiver_id;
+          this.roll_out_money = res.value;
+          // this.gas_limit = res.data.gas;
+          // this.gas_used = res.data.gasUsed;
+          // this.gas_price = res.data.gasPrice;
+          // this.power = this.gas_used * this.gas_price;
+          // this.np = res.data.nonce;
+          // this.data = res.data.input;
           // console.log(res);
         }
       } catch (e) {
