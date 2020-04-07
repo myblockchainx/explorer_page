@@ -1,7 +1,7 @@
 import axios from "axios";
 var url = "http://13.251.6.203:3001/";
 var near_url = "http://13.250.204.142:3030"
-var data_url = "http://localhost:8090/"
+var data_url = "http://13.250.204.142:3000/"
 // var url = "http://134.209.104.209:3001/"
 // var url = "http://localhost:3001/";
 // var url = "http://106.13.216.136:3001/"
