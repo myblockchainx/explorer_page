@@ -4,9 +4,9 @@
         <div class="container foot-box  foot-link-block">
             <div class="d-flex justify-content-space-between foot-box-con">
                 <div class="text-left">
-                    <a href="/" class="footer-logo d-inline-block" target="_blank">
+                    <!-- <a href="/" class="footer-logo d-inline-block" target="_blank">
                         <img :src="logo" class="d-block" alt="">
-                    </a>
+                    </a> -->
                     <p class="font-size-12 footer-link-color foot_warning">{{foot.info}}</p>
                 </div>
                 <div class="text-left foot-link-block">

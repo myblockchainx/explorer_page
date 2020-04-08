@@ -104,19 +104,12 @@ export default {
     async updateData() {
       // let that = this;
       try {
-        let latedata = await Home.dataCal();
+        // let latedata = await Home.dataCal();
         let latest = await Home.latestMesg()
-        // console.log("latest:",latest.data.result.sync_info.latest_block_height)
-        if (latedata.data.resp.code == 1000) {
-          let dataCall = latedata.data.resp.data;
-          // console.log("dataCall",dataCall)
-          this.miner_num = latest.data.resp.validatorLen;
-          this.burn_num = dataCall.burnt;
-          this.now_block = latest.data.resp.block_num;
-          this.hashrate_num = dataCall.netPower;
-          this.block_time = latest.data.resp.avgTime; //平均出块时间
-          this.tx_speed = 1; //平均处理交
-        }
+        this.miner_num = latest.data.resp.validatorLen;
+        this.now_block = latest.data.resp.block_num;
+        this.block_time = latest.data.resp.avgTime; //平均出块时间
+        this.tx_speed = latest.data.resp.tx_speed; //平均处理交
       } catch (e) {
         // that.$notify.error({title: that.$t("ERROR"), message: e.toString()});
         console.log(e);
@@ -135,7 +128,7 @@ export default {
           this.block_time = latest.data.resp.avgTime; //平均出块时间
           let latest_block = latest.data.resp.latestBlock;
           
-          this.tx_speed = 1; //平均处理交
+          this.tx_speed = latest.data.resp.tx_speed; //平均处理交
           if (dataCall.block) {
             this.$Trans.$emit("block_latest", latest_block);
           }

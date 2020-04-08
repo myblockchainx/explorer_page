@@ -66,12 +66,11 @@
       position: absolute;
       left: 24px;
       top: 27px;
-
+      font-size: 22px;
+      color: #f4f9f6;
+      font-weight: 600;
       height: 35.6px;
       width: auto;
-      .logo-img {
-        height: 100%;
-      }
     }
     .sidebar-nav {
       width: 75%;

@@ -40,18 +40,22 @@ class home {
             params: { "height": block }
         });
     }
-    blockList(){
+    blockList(page){
         return axios({
             method: 'GET',
             url: data_url + 'api/block/getBlockList',
-            params:{}
+            params:{
+                "page":page
+            }
         })
     }
-    txList(){
+    txList(page){
         return axios({
             method: 'GET',
             url : data_url + 'api/transaction/getTxListOrByAccount',
-            params:{}
+            params:{
+                "page":page
+            }
         })
     }
     latestMesg(){

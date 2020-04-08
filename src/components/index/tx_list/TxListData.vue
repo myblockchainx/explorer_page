@@ -2,10 +2,10 @@
   <section class="txlistdata">
     <div class="bd_show">
       <div class="bd_show_title d-flex align-items-center">
-          <div class="bd_show_title_l d-flex align-items-center justify-content-space-between">
+          <!-- <div class="bd_show_title_l d-flex align-items-center justify-content-space-between">
             <img src="../../../assets/images/index/others/tx_exchange.png">
             <p>{{list.title}}<span>{{blocknum}}</span> From : <input ref="frominput" type="text"/> &nbsp;To : <input ref="toinput" type="text"/> &nbsp;<button @click="confirminput" class="txconfirm">{{list.confirm}}</button></p>
-          </div>
+          </div> -->
           <div class="txlistdata_info">
             <!-- {{list.info}}<span>123</span>{{list.num}} -->
           </div>
@@ -132,15 +132,15 @@ export default {
       // console.log(this.$route.query.hash);
       // this.nowtimes = parseInt(Date.parse(new Date()) / 1000);
       try {
-        let res = await Home.totaltx(options,pagesize,page);
+        // let res = await Home.totaltx(options,pagesize,page);
         let txList = await Home.txList();
-        console.log("tx:",txList.data.resp.txList)
+        // console.log("tx:",txList.data.resp.txList)
         // console.log("res:",res.data)
         // console.log(res);
         this.tableData = txList.data.resp.txList;
         this.blocknum = txList.data.resp.count;
         this.total = txList.data.resp.count;
-        if (res.status == 200) this.loading = false;
+        if (txList.status == 200) this.loading = false;
       } catch (e) {
         console.log(e);
       }
@@ -151,14 +151,15 @@ export default {
     async current_change(currentPage) {
       this.currentPage = currentPage;
       
-      let res = await Home.totaltx(
-        this.validInputOption(),
-        this.pagesize,
-        (currentPage - 1) * this.pagesize
-      );
-      this.tableData = res.data.content;
-      this.blocknum = res.data.total;
-      this.total = res.data.total;
+      // let res = await Home.totaltx(
+      //   this.validInputOption(),
+      //   this.pagesize,
+      //   (currentPage - 1) * this.pagesize
+      // );
+      let txList = await Home.txList(currentPage)
+      this.tableData = txList.data.resp.txList;
+      this.blocknum = txList.data.resp.count;
+      this.total = txList.data.resp.count;
     },
     //判断是否为合约账户或者外部账户
     async tokenrelay(address) {

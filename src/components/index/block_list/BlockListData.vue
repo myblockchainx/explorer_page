@@ -120,19 +120,19 @@ export default {
       // console.log(this.$route.query.hash);
       // this.nowtimes = parseInt(Date.parse(new Date()) / 1000);
       try {
-        let res = await Home.totalblocks(this.pagesize, 0);
+        // let res = await Home.totalblocks(this.pagesize, 0);
         let latest = await Home.postUrl("status",[])
-        let datas = await Home.blockList();
+        let datas = await Home.blockList(0);
         
-        if (res.data.resp) {
+        // if (res.data.resp) {
           if (datas.data.resp.blockList) {
             this.tableData = datas.data.resp.blockList;
             // console.log("data:",this.tableData)
           }
           this.blocknum = latest.data.result.sync_info.latest_block_height;
-          this.total = res.data.resp.total;
-        }
-        if (res.status == 200) this.loading = false;
+          this.total = datas.data.resp.count;
+        // }
+        if (datas.status == 200) this.loading = false;
       } catch (e) {
         console.log(e);
       }
@@ -142,16 +142,17 @@ export default {
     },
     async current_change(currentPage) {
       this.currentPage = currentPage;
-      let res = await Home.totalblocks(
-        this.pagesize,
-        (currentPage - 1) * this.pagesize
-      );
+      // let res = await Home.totalblocks( 
+      //   this.pagesize,
+      //   (currentPage - 1) * this.pagesize
+      // );
+      let res = await Home.blockList(currentPage);
       if (res.data.resp) {
-        if (res.data.resp.content) {
-          this.tableData = res.data.resp.content;
+        if (res.data.resp.blockList) {
+          this.tableData = res.data.resp.blockList;
         }
-        this.blocknum = res.data.resp.total;
-        this.total = res.data.resp.total;
+        this.blocknum = res.data.resp.count;
+        this.total = res.data.resp.count;
       }
     }
   },

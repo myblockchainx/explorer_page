@@ -136,7 +136,7 @@ export default {
       // console.log(this.nowtimes);r
       try {
         // let res = await Home.reloadBlocks();
-        let datas = await Home.blockList();
+        let datas = await Home.blockList(0);
         console.log("datas:",datas)
         if (datas.data.resp.blockList) {
           // this.message_data = res.data.resp.blocks;

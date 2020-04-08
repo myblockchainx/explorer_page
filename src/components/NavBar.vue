@@ -350,11 +350,13 @@ export default {
     .logo-wrapper {
       height: 42px;
       width: auto;
-      
       .logo-img {
         font-size: 30px;
         color: #f4f9f6;
         font-weight: 600;
+        @include md-lg-lt-md() {
+          font-size: 22px;
+        }
       }
     }
   }
